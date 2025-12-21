@@ -3,10 +3,11 @@
     public class Product : Entity
     {
         public string Name { get; private set; } = string.Empty;
+        public string Description { get; private set; } = string.Empty;
         public decimal Price { get; private set; }
         public int Stock { get; private set; }
 
-        public Product(string name, decimal price, int stock)
+        public Product(string name, string description, decimal price, int stock)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("Name is required.", nameof(name));
@@ -18,6 +19,7 @@
                 throw new ArgumentException("Stock must be zero or greater.", nameof(stock));
 
             Name = name;
+            Description = description;
             Price = price;
             Stock = stock;
         }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SalesManager.Contracts.DTOs.Sale
+﻿namespace SalesManager.Contracts.DTOs.Sale
 {
     public class SaleItemDto
     {

@@ -6,25 +6,25 @@ namespace SalesManager.Application.Common.SimpleMediator
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddSimpleMediator(this IServiceCollection services, Assembly[] assemblies)
+        public static IServiceCollection AddSimpleMediator(this IServiceCollection services, Assembly assembly)
         {
             services.AddSingleton<IMediator, Mediator>();
 
-            RegisterHandlers(services, assemblies, typeof(IRequestHandler<,>));
+            RegisterHandlers(services, assembly, typeof(IRequestHandler<,>));
 
             return services;
         }
 
-        private static void RegisterHandlers(IServiceCollection services, Assembly[] assemblies, Type handlerInterface)
+        private static void RegisterHandlers(IServiceCollection services, Assembly assembly, Type handlerInterface)
         {
-            var types = assemblies.SelectMany(a => a.GetTypes())
+            var types = assembly.GetTypes()
                 .Where(t => t.IsClass && !t.IsAbstract)
                 .ToList();
 
             foreach (var type in types)
             {
                 var interfaces = type.GetInterfaces()
-                    .Where(t => t.IsGenericType && t.GetGenericTypeDefinition() == handlerInterface);
+                    .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == handlerInterface);
 
                 foreach (var @interface in interfaces)
                 {

@@ -2,7 +2,7 @@
 
 namespace SalesManager.Application.Common.CQRS
 {
-    public interface ICommand<TCommandResponse> : IRequest<TCommandResponse>
+    public interface ICommand<TResponse> : IRequest<TResponse>
     {
         DateTimeOffset Timestamp { get; }
     }

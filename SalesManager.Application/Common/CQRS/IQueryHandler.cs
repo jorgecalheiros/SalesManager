@@ -2,8 +2,7 @@
 
 namespace SalesManager.Application.Common.CQRS
 {
-    public interface IQueryHandler<TQuery, TResult> where TQuery : IQuery<TResult>, IRequestHandler<TQuery, TResult>
+    public interface IQueryHandler<in TQuery, TResponse> : IRequestHandler<TQuery, TResponse> where TQuery : IQuery<TResponse>, IRequest<TResponse>
     {
-        Task<TResult> HandleAsync(TQuery query, CancellationToken cancellationToken = default);
     }
 }

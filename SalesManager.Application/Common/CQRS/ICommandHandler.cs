@@ -2,8 +2,7 @@
 
 namespace SalesManager.Application.Common.CQRS
 {
-    public interface ICommandHandler<TCommand, TCommandResponse> where TCommand : ICommand<TCommandResponse>, IRequestHandler<TCommand, TCommandResponse>
+    public interface ICommandHandler<in TCommand, TCommandResponse> : IRequestHandler<TCommand, TCommandResponse> where TCommand : ICommand<TCommandResponse>, IRequest<TCommandResponse>
     {
-        Task<TCommandResponse> HandleAsync(TCommand command, CancellationToken cancellationToken = default);
     }
 }

@@ -1,11 +1,13 @@
 ﻿namespace SalesManager.Domain.Entities
 {
-    public sealed class SaleItem
+    public sealed class SaleItem : Entity
     {
         public Guid ProductId { get; }
         public decimal UnitPrice { get; }
         public int Quantity { get; }
         public decimal Total => UnitPrice * Quantity;
+        public Guid SaleId { get; private set; }
+        public Sale? Sale { get; private set; }
 
         public SaleItem(Guid productId, decimal unitPrice, int quantity)
         {
@@ -22,5 +24,7 @@
             UnitPrice = unitPrice;
             Quantity = quantity;
         }
+
+        private SaleItem() { }
     }
 }

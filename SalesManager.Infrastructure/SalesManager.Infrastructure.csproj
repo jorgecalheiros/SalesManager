@@ -21,8 +21,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\PostgreSql\Mappings\" />
     <Folder Include="Data\PostgreSql\Repositories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SalesManager.Contracts\SalesManager.Contracts.csproj" />
+    <ProjectReference Include="..\SalesManager.Domain\SalesManager.Domain.csproj" />
   </ItemGroup>
 
 </Project>

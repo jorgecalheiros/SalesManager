@@ -15,7 +15,7 @@ namespace SalesManager.Infrastructure.Data.PostgreSql.Repositories
 
         public async Task<bool> EmailExistAsync(string email, CancellationToken cancellationToken = default)
         {
-            return await _context.Clients.AnyAsync(c => c.Email == email, cancellationToken);
+            return await _context.Clients.AnyAsync(c => c.Email == email, cancellationToken).ConfigureAwait(false);
         }
 
         public async Task<IEnumerable<ClientDto>> GetAllAsync(CancellationToken cancellationToken = default)

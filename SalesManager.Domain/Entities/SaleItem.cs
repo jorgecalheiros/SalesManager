@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SalesManager.Domain.Entities
+﻿namespace SalesManager.Domain.Entities
 {
     public sealed class SaleItem
     {

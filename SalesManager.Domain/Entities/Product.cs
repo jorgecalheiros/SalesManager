@@ -24,6 +24,19 @@
             Stock = stock;
         }
 
+        public void ChangeName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new InvalidOperationException("Name is required.");
+            Name = name;
+            Touch();
+        }
+        public void ChangeDescription(string description)
+        {
+            Description = description ?? string.Empty;
+            Touch();
+        }
+
         public void ChangePrice(decimal price)
         {
             if (price <= 0m)

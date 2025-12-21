@@ -13,11 +13,6 @@ namespace SalesManager.Infrastructure.Data.PostgreSql.Repositories
             _context = context;
         }
 
-        public async Task<bool> EmailExistAsync(string email, CancellationToken cancellationToken = default)
-        {
-            return await _context.Clients.AnyAsync(c => c.Email == email, cancellationToken).ConfigureAwait(false);
-        }
-
         public async Task<IEnumerable<ClientDto>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             var query = from c in _context.Clients.AsNoTracking()
@@ -31,7 +26,7 @@ namespace SalesManager.Infrastructure.Data.PostgreSql.Repositories
                             UpdatedAt = c.UpdatedAt
                         };
 
-            return await query.ToListAsync(cancellationToken).ConfigureAwait(false);
+            return await query.ToListAsync(cancellationToken);
         }
 
         public async Task<ClientDto?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
@@ -48,7 +43,7 @@ namespace SalesManager.Infrastructure.Data.PostgreSql.Repositories
                             UpdatedAt = c.UpdatedAt
                         };
 
-            return await query.SingleOrDefaultAsync(cancellationToken).ConfigureAwait(false);
+            return await query.SingleOrDefaultAsync(cancellationToken);
         }
     }
 }

@@ -6,6 +6,5 @@ namespace SalesManager.Contracts.Interfaces.Repositories
     {
         Task<IEnumerable<ClientDto>> GetAllAsync(CancellationToken cancellationToken = default);
         Task<ClientDto?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
-        Task<bool> EmailExistAsync(string email, CancellationToken cancellationToken = default);
     }
 }

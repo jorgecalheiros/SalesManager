@@ -20,6 +20,11 @@ namespace SalesManager.Infrastructure.Data.PostgreSql.Mappings
                    .HasMaxLength(200)
                    .HasColumnName("name");
 
+            builder.Property(p => p.Description)
+                   .IsRequired()
+                   .HasMaxLength(1000)
+                   .HasColumnName("description");
+
             builder.Property(p => p.Price)
                    .IsRequired()
                    .HasColumnName("price")

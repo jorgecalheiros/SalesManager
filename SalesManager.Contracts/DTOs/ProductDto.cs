@@ -8,5 +8,7 @@
         public decimal Price { get; set; }
         public int Stock { get; set; }
         public bool Available => Stock > 0;
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }

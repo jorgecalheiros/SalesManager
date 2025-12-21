@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36511.14 d17.14
+VisualStudioVersion = 17.14.36511.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
@@ -17,7 +17,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. Infrastructure", "5. Inf
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6. Tests", "6. Tests", "{99D8AF77-156E-41DE-A647-797950682E24}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesManager.Domain", "SalesManager.Domain\SalesManager.Domain.csproj", "{C0BF0441-9550-F306-D839-D289AE8E93A8}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C0BF0441-9550-F306-D839-D289AE8E93A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0BF0441-9550-F306-D839-D289AE8E93A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0BF0441-9550-F306-D839-D289AE8E93A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0BF0441-9550-F306-D839-D289AE8E93A8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
@@ -28,6 +40,7 @@ Global
 		{EF040421-E74F-40D1-A217-1B6FCADF759E} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{8C36922E-3453-4971-AD7B-B471C0ACA31C} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{99D8AF77-156E-41DE-A647-797950682E24} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{C0BF0441-9550-F306-D839-D289AE8E93A8} = {D4EA6D5F-190B-4546-A2DF-08DE6F4A9AE3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4FA31C46-A002-4C66-B79A-8840B360AA56}

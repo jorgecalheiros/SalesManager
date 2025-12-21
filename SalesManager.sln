@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesManager.Domain", "Sale
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesManager.Contracts", "SalesManager.Contracts\SalesManager.Contracts.csproj", "{B1F4D4F9-E447-4DD0-A7D8-B9EB9E6608F5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesManager.Infrastructure", "SalesManager.Infrastructure\SalesManager.Infrastructure.csproj", "{626D4B12-5A62-4F81-9393-25DB4E6EAF89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{B1F4D4F9-E447-4DD0-A7D8-B9EB9E6608F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1F4D4F9-E447-4DD0-A7D8-B9EB9E6608F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1F4D4F9-E447-4DD0-A7D8-B9EB9E6608F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{626D4B12-5A62-4F81-9393-25DB4E6EAF89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{626D4B12-5A62-4F81-9393-25DB4E6EAF89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{626D4B12-5A62-4F81-9393-25DB4E6EAF89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{626D4B12-5A62-4F81-9393-25DB4E6EAF89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +54,7 @@ Global
 		{99D8AF77-156E-41DE-A647-797950682E24} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{C0BF0441-9550-F306-D839-D289AE8E93A8} = {D4EA6D5F-190B-4546-A2DF-08DE6F4A9AE3}
 		{B1F4D4F9-E447-4DD0-A7D8-B9EB9E6608F5} = {EF040421-E74F-40D1-A217-1B6FCADF759E}
+		{626D4B12-5A62-4F81-9393-25DB4E6EAF89} = {8C36922E-3453-4971-AD7B-B471C0ACA31C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4FA31C46-A002-4C66-B79A-8840B360AA56}

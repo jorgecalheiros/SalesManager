@@ -31,7 +31,11 @@ namespace SalesManager.Application.Common.SimpleMediator
 
         private async Task ValidateAsync<T>(T request)
         {
-            var validators = _provider.GetServices<IValidator<T>>();
+            if (request == null)
+                throw new ArgumentNullException(nameof(request));
+
+            var validatorType = typeof(IValidator<>).MakeGenericType(request.GetType());
+            var validators = _provider.GetServices(validatorType).Cast<IValidator>();
 
             if (!validators.Any())
                 return;

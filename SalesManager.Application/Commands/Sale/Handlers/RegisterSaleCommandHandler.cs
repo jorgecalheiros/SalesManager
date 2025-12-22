@@ -3,13 +3,13 @@ using SalesManager.Domain.Interfaces.Repositories;
 
 namespace SalesManager.Application.Commands.Sale.Handlers
 {
-    public class RegisterSaleCommandHandle : ICommandHandler<RegisterSaleCommand, Guid>
+    public class RegisterSaleCommandHandler : ICommandHandler<RegisterSaleCommand, Guid>
     {
         private readonly IProductRepository _productRepository;
         private readonly IClientRepository _clientRepository;
         private readonly ISaleRepository _saleRepository;
 
-        public RegisterSaleCommandHandle(IProductRepository productRepository, IClientRepository clientRepository, ISaleRepository saleRepository)
+        public RegisterSaleCommandHandler(IProductRepository productRepository, IClientRepository clientRepository, ISaleRepository saleRepository)
         {
             _productRepository = productRepository;
             _clientRepository = clientRepository;
@@ -40,6 +40,10 @@ namespace SalesManager.Application.Commands.Sale.Handlers
                 }, cancellationToken);
 
                 return sale.Id;
+            }
+            catch (InvalidOperationException)
+            {
+                throw;
             }
             catch (Exception ex)
             {

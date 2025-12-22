@@ -9,9 +9,9 @@ namespace SalesManager.Infrastructure
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, string connectinString)
+        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, string connectinString = "")
         {
-            services.AddDbContext<SalesManagerDbContext>(options => options.UseNpgsql(connectinString));
+            if (!string.IsNullOrEmpty(connectinString)) services.AddDbContext<SalesManagerDbContext>(options => options.UseNpgsql(connectinString));
 
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<IClientReadRepository, ClientReadRepository>();

@@ -3,7 +3,7 @@ using SalesManager.Domain.Interfaces.Repositories;
 
 namespace SalesManager.Application.Commands.Client.Handlers
 {
-    public class DeleteClientCommandHandler : ICommandHandler<DeleteClientCommad, bool>
+    public class DeleteClientCommandHandler : ICommandHandler<DeleteClientCommand, bool>
     {
         private readonly IClientRepository _clientRepository;
 
@@ -12,7 +12,7 @@ namespace SalesManager.Application.Commands.Client.Handlers
             _clientRepository = clientRepository;
         }
 
-        public async Task<bool> HandleAsync(DeleteClientCommad request, CancellationToken cancellationToken = default)
+        public async Task<bool> HandleAsync(DeleteClientCommand request, CancellationToken cancellationToken = default)
         {
             try
             {

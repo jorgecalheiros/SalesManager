@@ -7,11 +7,11 @@ namespace SalesManager.Application
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services, string connectionString)
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services, string connectionString = "")
         {
-            services.AddValidatorsFromAssembly(typeof(ServiceCollectionExtensions).Assembly);
-
             services.AddSimpleMediator(typeof(ServiceCollectionExtensions).Assembly);
+
+            services.AddValidatorsFromAssembly(typeof(ServiceCollectionExtensions).Assembly);
 
             services.AddInfrastructureServices(connectionString);
 

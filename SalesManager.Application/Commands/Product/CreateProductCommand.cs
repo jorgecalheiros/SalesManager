@@ -10,7 +10,7 @@ namespace SalesManager.Application.Commands.Product
         public int Stock { get; private set; }
         public DateTimeOffset Timestamp => DateTimeOffset.UtcNow;
 
-        public CreateProductCommand(string name, string description, decimal price, int stock)
+        public CreateProductCommand(string name, decimal price, int stock, string description = "")
         {
             Name = name;
             Description = description;

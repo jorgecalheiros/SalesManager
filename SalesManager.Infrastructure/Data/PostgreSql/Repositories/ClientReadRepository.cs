@@ -26,7 +26,7 @@ namespace SalesManager.Infrastructure.Data.PostgreSql.Repositories
                             UpdatedAt = c.UpdatedAt
                         };
 
-            return await query.ToListAsync(cancellationToken);
+            return await query.ToListAsync(cancellationToken).ConfigureAwait(false);
         }
 
         public async Task<ClientDto?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)

@@ -16,7 +16,7 @@ namespace SalesManager.Application.Commands.Product.Handlers
         {
             try
             {
-                var product = new Domain.Entities.Product(request.Name, request.Description, request.Price, request.Stock);
+                var product = new Domain.Entities.Product(request.Name, request.Price, request.Stock, request.Description);
 
                 await _productRepository.ExecuteTransactionAsync(() =>
                 {

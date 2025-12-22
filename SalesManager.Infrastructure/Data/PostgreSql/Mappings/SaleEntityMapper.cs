@@ -21,13 +21,9 @@ namespace SalesManager.Infrastructure.Data.PostgreSql.Mappings
 
             builder.Ignore(s => s.Total);
 
-            builder.Metadata
-                   .FindNavigation(nameof(Sale.Items))!
-                   .SetPropertyAccessMode(PropertyAccessMode.Field);
-
-            builder.HasMany<SaleItem>("_items")
+            builder.HasMany(s => s.Items)
                    .WithOne()
-                   .HasForeignKey("SaleId")
+                   .HasForeignKey(s => s.SaleId)
                    .OnDelete(DeleteBehavior.Cascade);
 
             builder.Property(s => s.CreatedAt)

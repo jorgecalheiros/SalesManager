@@ -10,6 +10,11 @@ namespace SalesManager.Infrastructure.Data.PostgreSql
         public DbSet<Sale> Sales { get; set; }
         public DbSet<SaleItem> SaleItems { get; set; }
 
+        public SalesManagerDbContext(DbContextOptions<SalesManagerDbContext> options) : base(options)
+        {
+
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(SalesManagerDbContext).Assembly);

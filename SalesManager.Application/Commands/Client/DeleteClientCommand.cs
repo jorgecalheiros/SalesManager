@@ -2,12 +2,12 @@
 
 namespace SalesManager.Application.Commands.Client
 {
-    public class DeleteClientCommad : ICommand<bool>
+    public class DeleteClientCommand : ICommand<bool>
     {
         public Guid Id { get; private set; }
         public DateTimeOffset Timestamp => DateTimeOffset.UtcNow;
 
-        public DeleteClientCommad(Guid id)
+        public DeleteClientCommand(Guid id)
         {
             Id = id;
         }

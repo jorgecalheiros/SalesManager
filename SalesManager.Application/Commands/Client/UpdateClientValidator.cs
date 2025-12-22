@@ -23,9 +23,9 @@ namespace SalesManager.Application.Commands.Client
 
             RuleFor(x => x.PhoneNumber)
                 .NotEmpty().WithMessage("Telefone é obrigatório.")
-                .Matches(@"^55\d{2}9\d{8}$")
-                    .WithMessage("Telefone deve seguir o formato 5512997311640 (código do país 55, DDD de 2 dígitos, 9XXXXXXXX).")
-                .Length(13).WithMessage("Telefone deve conter exatamente 13 dígitos (ex.: 5512997311640).")
+                .Matches(@"^55\d{10,11}$")
+                .WithMessage("O telefone deve estar no formato 55 + DDD + Número (ex: 551198888777).")
+                .Length(12, 13).WithMessage("O telefone deve ter entre 12 e 13 dígitos (incluindo o 55).")
                 .When(x => x.PhoneNumber != null);
         }
     }

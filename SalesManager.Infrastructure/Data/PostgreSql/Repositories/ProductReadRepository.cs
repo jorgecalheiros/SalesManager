@@ -20,6 +20,7 @@ namespace SalesManager.Infrastructure.Data.PostgreSql.Repositories
                             Name = p.Name,
                             Description = p.Description,
                             Price = p.Price,
+                            Stock = p.Stock,
                             CreatedAt = p.CreatedAt,
                             UpdatedAt = p.UpdatedAt
                         };
@@ -37,6 +38,7 @@ namespace SalesManager.Infrastructure.Data.PostgreSql.Repositories
                             Name = p.Name,
                             Description = p.Description,
                             Price = p.Price,
+                            Stock = p.Stock,
                             CreatedAt = p.CreatedAt,
                             UpdatedAt = p.UpdatedAt
                         };

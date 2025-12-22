@@ -11,7 +11,7 @@ namespace SalesManager.Application.Commands.Product
         public int? Stock { get; private set; }
         public DateTimeOffset Timestamp => DateTimeOffset.UtcNow;
 
-        public UpdateProductCommand(Guid id, string? name = null, string? description = null, decimal? price = null, int? stock = null)
+        public UpdateProductCommand(Guid id, string? name = null, decimal? price = null, int? stock = null, string? description = null)
         {
             Id = id;
             Price = price;

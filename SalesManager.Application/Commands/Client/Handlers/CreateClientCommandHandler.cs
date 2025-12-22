@@ -32,6 +32,10 @@ namespace SalesManager.Application.Commands.Client.Handlers
 
                 return client.Id;
             }
+            catch (InvalidOperationException)
+            {
+                throw;
+            }
             catch (Exception ex)
             {
                 throw new ApplicationException("Ocorreu um erro ao criar o cliente.", ex);

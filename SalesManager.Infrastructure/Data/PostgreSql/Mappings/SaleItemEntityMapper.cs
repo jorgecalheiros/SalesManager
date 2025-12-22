@@ -45,7 +45,7 @@ namespace SalesManager.Infrastructure.Data.PostgreSql.Mappings
                    .HasColumnType("timestamp with time zone");
 
             builder.HasOne<Sale>()
-                   .WithMany("_items")
+                   .WithMany(s => s.Items)
                    .HasForeignKey(si => si.SaleId)
                    .OnDelete(DeleteBehavior.Cascade);
 

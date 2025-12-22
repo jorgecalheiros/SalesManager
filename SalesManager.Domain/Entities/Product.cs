@@ -7,7 +7,7 @@
         public decimal Price { get; private set; }
         public int Stock { get; private set; }
 
-        public Product(string name, string description, decimal price, int stock)
+        public Product(string name, decimal price, int stock, string description = "")
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("Name is required.", nameof(name));

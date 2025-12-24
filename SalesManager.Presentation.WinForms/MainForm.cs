@@ -52,7 +52,7 @@ namespace SalesManager.Presentation.WinForms
 
         private void buttonProducts_Click(object sender, EventArgs e)
         {
-            
+
             OpenChildForm(new Forms.ProductForm(GetMediator()), sender);
         }
 

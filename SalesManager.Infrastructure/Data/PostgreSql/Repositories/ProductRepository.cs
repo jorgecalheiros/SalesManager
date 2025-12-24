@@ -6,7 +6,7 @@ namespace SalesManager.Infrastructure.Data.PostgreSql.Repositories
 {
     public class ProductRepository : BaseRepository<Product>, IProductRepository
     {
-        public ProductRepository(IDbContextFactory<SalesManagerDbContext> contextFactory) : base(contextFactory)
+        public ProductRepository(SalesManagerDbContext context) : base(context)
         {
         }
 

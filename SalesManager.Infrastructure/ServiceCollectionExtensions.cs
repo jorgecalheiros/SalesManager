@@ -11,7 +11,12 @@ namespace SalesManager.Infrastructure
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, string connectionString = "")
         {
-            if (!string.IsNullOrEmpty(connectionString)) services.AddPooledDbContextFactory<SalesManagerDbContext>(options => options.UseNpgsql(connectionString));
+            if (!string.IsNullOrEmpty(connectionString))
+            {
+                services.AddPooledDbContextFactory<SalesManagerDbContext>(options => options.UseNpgsql(connectionString));
+
+                services.AddScoped(sp => sp.GetRequiredService<IDbContextFactory<SalesManagerDbContext>>().CreateDbContext());
+            }
 
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<IClientReadRepository, ClientReadRepository>();

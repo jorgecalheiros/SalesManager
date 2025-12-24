@@ -8,9 +8,9 @@ namespace SalesManager.Infrastructure.Data.PostgreSql.Repositories
         protected readonly SalesManagerDbContext _context;
         protected readonly DbSet<TEntity> _dbSet;
 
-        public BaseRepository(SalesManagerDbContext context)
+        public BaseRepository(IDbContextFactory<SalesManagerDbContext> context)
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _context = context.CreateDbContext();
             _dbSet = _context.Set<TEntity>();
         }
 

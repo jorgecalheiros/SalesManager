@@ -6,7 +6,7 @@ namespace SalesManager.Infrastructure.Data.PostgreSql.Repositories
 {
     public class ClientRepository : BaseRepository<Client>, IClientRepository
     {
-        public ClientRepository(SalesManagerDbContext context) : base(context)
+        public ClientRepository(IDbContextFactory<SalesManagerDbContext> contextFactory) : base(contextFactory)
         {
         }
 

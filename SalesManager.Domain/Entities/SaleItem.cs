@@ -3,13 +3,14 @@
     public sealed class SaleItem : Entity
     {
         public Guid ProductId { get; }
+        public Product Product { get; set; } = null!;
         public decimal UnitPrice { get; }
         public int Quantity { get; }
         public decimal Total => UnitPrice * Quantity;
         public Guid SaleId { get; private set; }
         public Sale? Sale { get; private set; }
 
-        public SaleItem(Guid productId, decimal unitPrice, int quantity)
+        public SaleItem(Guid productId, decimal unitPrice, int quantity, Product product)
         {
             if (productId == Guid.Empty)
                 throw new ArgumentException("ProductId must be a valid Guid.", nameof(productId));

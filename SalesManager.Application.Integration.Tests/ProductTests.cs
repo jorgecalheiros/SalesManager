@@ -24,7 +24,7 @@ namespace SalesManager.Application.Integration.Tests
                 10
             );
 
-            var productId = await mediator.Send(command);
+            var productId = await mediator.SendAsync(command);
 
             productId.Should().NotBeEmpty();
         }
@@ -36,11 +36,11 @@ namespace SalesManager.Application.Integration.Tests
 
             var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
 
-            var productId = await mediator.Send(
+            var productId = await mediator.SendAsync(
                 new CreateProductCommand("Mouse", 100m, 50)
             );
 
-            var product = await mediator.Send(new GetProductByIdQuery(productId));
+            var product = await mediator.SendAsync(new GetProductByIdQuery(productId));
 
             product.Should().NotBeNull();
             product!.Name.Should().Be("Mouse");
@@ -53,15 +53,15 @@ namespace SalesManager.Application.Integration.Tests
 
             var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
 
-            var productId = await mediator.Send(
+            var productId = await mediator.SendAsync(
                 new CreateProductCommand("Teclado", 200m, 30)
             );
 
-            await mediator.Send(
+            await mediator.SendAsync(
                 new UpdateProductCommand(productId, "Teclado Mecanico", 300m, 20)
             );
 
-            var product = await mediator.Send(new GetProductByIdQuery(productId));
+            var product = await mediator.SendAsync(new GetProductByIdQuery(productId));
 
             product!.Price.Should().Be(300m);
             product.Stock.Should().Be(20);
@@ -74,13 +74,13 @@ namespace SalesManager.Application.Integration.Tests
 
             var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
 
-            var productId = await mediator.Send(
+            var productId = await mediator.SendAsync(
                 new CreateProductCommand("Produto Delete", 10m, 1)
             );
 
-            await mediator.Send(new DeleteProductCommand(productId));
+            await mediator.SendAsync(new DeleteProductCommand(productId));
 
-            var productDeleted = await mediator.Send(new GetProductByIdQuery(productId));
+            var productDeleted = await mediator.SendAsync(new GetProductByIdQuery(productId));
 
             productDeleted.Should().BeNull();
         }

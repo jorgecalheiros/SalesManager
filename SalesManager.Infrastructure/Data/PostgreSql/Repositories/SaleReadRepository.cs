@@ -50,24 +50,26 @@ namespace SalesManager.Infrastructure.Data.PostgreSql.Repositories
 
         public async Task<IEnumerable<SaleReportDto>> GetSalesReportByPeriodAsync(DateTime startDate, DateTime endDate, CancellationToken cancellationToken = default)
         {
-            var query = from si in _context.SaleItems.AsNoTracking()
-                        join s in _context.Sales.AsNoTracking() on si.SaleId equals s.Id
-                        join c in _context.Clients.AsNoTracking() on s.ClientId equals c.Id
-                        join p in _context.Products.AsNoTracking() on si.ProductId equals p.Id
-                        where s.CreatedAt >= startDate && s.CreatedAt <= endDate
-                        select new SaleReportDto
-                        {
-                            SaleId = s.Id,
-                            SaleDate = s.CreatedAt,
-                            ClientName = c.Name,
-                            ProductName = p.Name,
-                            Quantity = si.Quantity,
-                            UnitPrice = si.UnitPrice,
-                            SaleTotal = _context.SaleItems.Where(x => x.SaleId == s.Id)
-                                                          .Sum(x => x.UnitPrice * x.Quantity)
-                        };
+            var startDateUtc = DateTime.SpecifyKind(startDate, DateTimeKind.Utc);
+            var endDateUtc = DateTime.SpecifyKind(endDate, DateTimeKind.Utc);
 
-            return await query.ToListAsync(cancellationToken).ConfigureAwait(false);
+            return await _context.Sales
+                    .AsNoTracking()
+                    .SelectMany(v => v.Items, (sale, item) =>
+                    new SaleReportDto
+                    {
+                        ClientName = sale.Client.Name,
+                        ClientEmail = sale.Client.Email,
+                        SaleId = sale.Id,
+                        SaleDate = sale.CreatedAt,
+                        ProductName = item.Product.Name,
+                        UnitPrice = item.Product.Price,
+                        Quantity = item.Quantity
+                    })
+                    .OrderBy(x => x.ClientEmail)
+                    .ThenBy(x => x.SaleId)
+                    .ToListAsync(cancellationToken);
+
         }
     }
 }

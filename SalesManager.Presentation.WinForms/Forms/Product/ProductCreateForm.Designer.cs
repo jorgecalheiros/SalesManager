@@ -92,9 +92,12 @@
             // 
             numericUpDownPrice.DecimalPlaces = 2;
             numericUpDownPrice.Location = new Point(241, 73);
+            numericUpDownPrice.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
+            numericUpDownPrice.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numericUpDownPrice.Name = "numericUpDownPrice";
             numericUpDownPrice.Size = new Size(253, 23);
             numericUpDownPrice.TabIndex = 5;
+            numericUpDownPrice.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // numericUpDownStock
             // 

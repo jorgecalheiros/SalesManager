@@ -24,7 +24,7 @@ namespace SalesManager.Application.Integration.Tests
                 "551199999999"
             );
 
-            var clientId = await mediator.Send(command);
+            var clientId = await mediator.SendAsync(command);
 
             clientId.Should().NotBeEmpty();
         }
@@ -42,10 +42,10 @@ namespace SalesManager.Application.Integration.Tests
                 "551188888888"
             );
 
-            var clientId = await mediator.Send(createCommand);
+            var clientId = await mediator.SendAsync(createCommand);
 
             var query = new GetClientByIdQuery(clientId);
-            var client = await mediator.Send(query);
+            var client = await mediator.SendAsync(query);
 
             client.Should().NotBeNull();
             client!.Name.Should().Be("Maria Souza");
@@ -58,7 +58,7 @@ namespace SalesManager.Application.Integration.Tests
 
             var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
 
-            var clientId = await mediator.Send(
+            var clientId = await mediator.SendAsync(
                 new CreateClientCommand("Carlos", "c@email.com", "551188888888")
             );
 
@@ -69,9 +69,9 @@ namespace SalesManager.Application.Integration.Tests
                 "551188888889"
             );
 
-            await mediator.Send(updateCommand);
+            await mediator.SendAsync(updateCommand);
 
-            var client = await mediator.Send(new GetClientByIdQuery(clientId));
+            var client = await mediator.SendAsync(new GetClientByIdQuery(clientId));
 
             client!.Name.Should().Be("Carlos Atualizado");
             client.Email.Should().Be("novo@email.com");
@@ -84,13 +84,13 @@ namespace SalesManager.Application.Integration.Tests
 
             var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
 
-            var clientId = await mediator.Send(
+            var clientId = await mediator.SendAsync(
                 new CreateClientCommand("Delete Me", "del@email.com", "551155555555")
             );
 
-            await mediator.Send(new DeleteClientCommand(clientId));
+            await mediator.SendAsync(new DeleteClientCommand(clientId));
 
-            var clientDeleted = await mediator.Send(new GetClientByIdQuery(clientId));
+            var clientDeleted = await mediator.SendAsync(new GetClientByIdQuery(clientId));
 
             clientDeleted.Should().BeNull();
         }

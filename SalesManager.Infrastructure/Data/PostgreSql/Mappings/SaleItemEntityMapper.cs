@@ -44,12 +44,12 @@ namespace SalesManager.Infrastructure.Data.PostgreSql.Mappings
                    .HasColumnName("updated_at")
                    .HasColumnType("timestamp with time zone");
 
-            builder.HasOne<Sale>()
+            builder.HasOne(si => si.Sale)
                    .WithMany(s => s.Items)
                    .HasForeignKey(si => si.SaleId)
                    .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasOne<Product>()
+            builder.HasOne(si => si.Product)
                    .WithMany()
                    .HasForeignKey(si => si.ProductId)
                    .OnDelete(DeleteBehavior.Restrict);

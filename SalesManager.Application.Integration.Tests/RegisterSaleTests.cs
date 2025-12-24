@@ -30,7 +30,7 @@ namespace SalesManager.Application.Integration.Tests
             await context.SaveChangesAsync();
 
             var command = new RegisterSaleCommand(client.Id, new List<SaleItemCommand> { new SaleItemCommand { ProductId = product.Id, Quantity = 1, UnitPrice = product.Price } });
-            var result = await mediator.Send(command);
+            var result = await mediator.SendAsync(command);
 
             result.Should().NotBeEmpty();
             var saleInDb = await context.Sales.FindAsync(result);
@@ -62,7 +62,7 @@ namespace SalesManager.Application.Integration.Tests
             });
 
 
-            Func<Task> act = async () => await mediator.Send(command);
+            Func<Task> act = async () => await mediator.SendAsync(command);
 
             await act.Should().ThrowAsync<InvalidOperationException>();
 
@@ -82,7 +82,7 @@ namespace SalesManager.Application.Integration.Tests
 
             var mediator = _fixture.ServiceProvider.GetRequiredService<IMediator>();
 
-            Func<Task> act = async () => await mediator.Send(command);
+            Func<Task> act = async () => await mediator.SendAsync(command);
 
             await act.Should().ThrowAsync<InvalidOperationException>()
                 .WithMessage($"*Cliente com ID {command.ClientId} não encontrado.*");

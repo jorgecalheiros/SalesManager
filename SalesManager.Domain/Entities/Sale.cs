@@ -3,6 +3,7 @@
     public class Sale : Entity
     {
         public Guid ClientId { get; private set; }
+        public Client Client { get; set; } = null!;
         public List<SaleItem> Items { get; private set; } = new();
         public decimal Total => Items.Sum(i => i.Total);
 
@@ -24,7 +25,7 @@
 
             product.DebitStock(quantity);
 
-            var item = new SaleItem(product.Id, product.Price, quantity);
+            var item = new SaleItem(product.Id, product.Price, quantity, product);
             Items.Add(item);
 
             Touch();

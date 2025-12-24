@@ -43,6 +43,10 @@ namespace SalesManager.Application.Commands.Client.Handlers
 
                 return true;
             }
+            catch (InvalidOperationException)
+            {
+                throw;
+            }
             catch (Exception ex)
             {
                 throw new ApplicationException("Ocorreu um erro ao atualizar o cliente.", ex);

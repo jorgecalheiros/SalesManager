@@ -18,9 +18,9 @@ namespace SalesManager.Application.Commands.Client
 
             RuleFor(x => x.PhoneNumber)
                 .NotEmpty().WithMessage("O telefone é obrigatório.")
-                .Matches(@"^55\d{10,11}$")
-                .WithMessage("O telefone deve estar no formato 55 + DDD + Número (ex: 551198888777).")
-                .Length(12, 13).WithMessage("O telefone deve ter entre 12 e 13 dígitos (incluindo o 55).");
+                .Matches(@"^55\d{9,10}$")
+                .WithMessage("O telefone deve estar no formato 55 + DDD + Número (ex: 55119888877).")
+                .Length(11, 12).WithMessage("O telefone deve ter entre 11 e 12 dígitos (incluindo o 55).");
         }
     }
 }

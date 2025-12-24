@@ -21,10 +21,9 @@ namespace SalesManager.Application.Integration.Tests.Fixture
 
             services.AddApplicationServices();
 
-            services.AddDbContext<SalesManagerDbContext>(options =>
-            {
-                options.UseSqlite(_connection);
-            });
+            services.AddPooledDbContextFactory<SalesManagerDbContext>(options => options.UseSqlite(_connection));
+
+            services.AddScoped(sp => sp.GetRequiredService<IDbContextFactory<SalesManagerDbContext>>().CreateDbContext());
 
             ServiceProvider = services.BuildServiceProvider();
 

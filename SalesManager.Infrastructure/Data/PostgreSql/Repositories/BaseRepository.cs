@@ -10,7 +10,7 @@ namespace SalesManager.Infrastructure.Data.PostgreSql.Repositories
 
         public BaseRepository(SalesManagerDbContext context)
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _context = context;
             _dbSet = _context.Set<TEntity>();
         }
 

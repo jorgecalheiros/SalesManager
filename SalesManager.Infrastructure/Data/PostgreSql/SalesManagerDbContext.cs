@@ -12,7 +12,6 @@ namespace SalesManager.Infrastructure.Data.PostgreSql
 
         public SalesManagerDbContext(DbContextOptions<SalesManagerDbContext> options) : base(options)
         {
-
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

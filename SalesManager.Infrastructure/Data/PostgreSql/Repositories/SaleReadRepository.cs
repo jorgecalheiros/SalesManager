@@ -6,68 +6,73 @@ namespace SalesManager.Infrastructure.Data.PostgreSql.Repositories
 {
     public class SaleReadRepository : ISaleReadRepository
     {
-        private readonly SalesManagerDbContext _context;
+        private readonly IDbContextFactory<SalesManagerDbContext> _contextFactory;
 
-        public SaleReadRepository(SalesManagerDbContext context)
+        public SaleReadRepository(IDbContextFactory<SalesManagerDbContext> contextFactory)
         {
-            _context = context;
+            _contextFactory = contextFactory;
         }
 
         public async Task<IEnumerable<SaleDto>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            var query = from s in _context.Sales.AsNoTracking()
-                        join c in _context.Clients.AsNoTracking() on s.ClientId equals c.Id
-                        join si in _context.SaleItems.AsNoTracking() on s.Id equals si.SaleId
-                        select new SaleDto
-                        {
-                            Id = s.Id,
-                            SaleDate = s.CreatedAt,
-                            ClientName = c.Name,
-                            TotalValue = s.Items.Sum(i => i.UnitPrice * i.Quantity),
-                            ItemCount = s.Items.Count()
-                        };
+            using var context = await _contextFactory.CreateDbContextAsync(cancellationToken);
 
-            return await query.ToListAsync(cancellationToken).ConfigureAwait(false);
+            return await context.Sales
+                .AsNoTracking()
+                .Select(s => new SaleDto
+                {
+                    Id = s.Id,
+                    SaleDate = s.CreatedAt,
+                    ClientName = s.Client.Name,
+                    TotalValue = s.Items.Sum(i => i.UnitPrice * i.Quantity),
+                    ItemCount = s.Items.Count()
+                })
+                .ToListAsync(cancellationToken).ConfigureAwait(false);
         }
 
         public async Task<SaleDto?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            var query = from s in _context.Sales.AsNoTracking()
-                        join c in _context.Clients.AsNoTracking() on s.ClientId equals c.Id
-                        join si in _context.SaleItems.AsNoTracking() on s.Id equals si.SaleId
-                        where s.Id == id
-                        select new SaleDto
-                        {
-                            Id = s.Id,
-                            SaleDate = s.CreatedAt,
-                            ClientName = c.Name,
-                            TotalValue = s.Items.Sum(i => i.UnitPrice * i.Quantity),
-                            ItemCount = s.Items.Count()
-                        };
+            using var context = await _contextFactory.CreateDbContextAsync(cancellationToken);
 
-            return await query.SingleOrDefaultAsync(cancellationToken).ConfigureAwait(false);
+            return await context.Sales
+                .AsNoTracking()
+                .Where(s => s.Id == id)
+                .Select(s => new SaleDto
+                {
+                    Id = s.Id,
+                    SaleDate = s.CreatedAt,
+                    ClientName = s.Client.Name,
+                    TotalValue = s.Items.Sum(i => i.UnitPrice * i.Quantity),
+                    ItemCount = s.Items.Count()
+                })
+                .SingleOrDefaultAsync(cancellationToken).ConfigureAwait(false);
         }
 
         public async Task<IEnumerable<SaleReportDto>> GetSalesReportByPeriodAsync(DateTime startDate, DateTime endDate, CancellationToken cancellationToken = default)
         {
-            var query = from si in _context.SaleItems.AsNoTracking()
-                        join s in _context.Sales.AsNoTracking() on si.SaleId equals s.Id
-                        join c in _context.Clients.AsNoTracking() on s.ClientId equals c.Id
-                        join p in _context.Products.AsNoTracking() on si.ProductId equals p.Id
-                        where s.CreatedAt >= startDate && s.CreatedAt <= endDate
-                        select new SaleReportDto
-                        {
-                            SaleId = s.Id,
-                            SaleDate = s.CreatedAt,
-                            ClientName = c.Name,
-                            ProductName = p.Name,
-                            Quantity = si.Quantity,
-                            UnitPrice = si.UnitPrice,
-                            SaleTotal = _context.SaleItems.Where(x => x.SaleId == s.Id)
-                                                          .Sum(x => x.UnitPrice * x.Quantity)
-                        };
+            using var context = await _contextFactory.CreateDbContextAsync(cancellationToken);
 
-            return await query.ToListAsync(cancellationToken).ConfigureAwait(false);
+            var startDateUtc = DateTime.SpecifyKind(startDate, DateTimeKind.Utc);
+            var endDateUtc = DateTime.SpecifyKind(endDate, DateTimeKind.Utc);
+
+            return await context.Sales
+                    .AsNoTracking()
+                    .Where(s => s.CreatedAt >= startDateUtc && s.CreatedAt <= endDateUtc)
+                    .SelectMany(v => v.Items, (sale, item) =>
+                    new SaleReportDto
+                    {
+                        ClientName = sale.Client.Name,
+                        ClientEmail = sale.Client.Email,
+                        SaleId = sale.Id,
+                        SaleDate = sale.CreatedAt,
+                        ProductName = item.Product.Name,
+                        UnitPrice = item.Product.Price,
+                        Quantity = item.Quantity
+                    })
+                    .OrderBy(x => x.SaleDate)
+                    .ThenBy(x => x.SaleId)
+                    .ToListAsync(cancellationToken);
+
         }
     }
 }

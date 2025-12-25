@@ -118,6 +118,8 @@ namespace SalesManager.Infrastructure.Data.PostgreSql.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClientId");
+
                     b.ToTable("sales", (string)null);
                 });
 
@@ -143,9 +145,6 @@ namespace SalesManager.Infrastructure.Data.PostgreSql.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("sale_id");
 
-                    b.Property<Guid?>("SaleId1")
-                        .HasColumnType("uuid");
-
                     b.Property<decimal>("UnitPrice")
                         .HasColumnType("numeric(18,2)")
                         .HasColumnName("unit_price");
@@ -160,28 +159,35 @@ namespace SalesManager.Infrastructure.Data.PostgreSql.Migrations
 
                     b.HasIndex("SaleId");
 
-                    b.HasIndex("SaleId1");
-
                     b.ToTable("sale_items", (string)null);
+                });
+
+            modelBuilder.Entity("SalesManager.Domain.Entities.Sale", b =>
+                {
+                    b.HasOne("SalesManager.Domain.Entities.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Client");
                 });
 
             modelBuilder.Entity("SalesManager.Domain.Entities.SaleItem", b =>
                 {
-                    b.HasOne("SalesManager.Domain.Entities.Product", null)
+                    b.HasOne("SalesManager.Domain.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("SalesManager.Domain.Entities.Sale", null)
+                    b.HasOne("SalesManager.Domain.Entities.Sale", "Sale")
                         .WithMany("Items")
                         .HasForeignKey("SaleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SalesManager.Domain.Entities.Sale", "Sale")
-                        .WithMany()
-                        .HasForeignKey("SaleId1");
+                    b.Navigation("Product");
 
                     b.Navigation("Sale");
                 });

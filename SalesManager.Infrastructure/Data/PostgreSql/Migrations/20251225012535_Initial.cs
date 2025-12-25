@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -55,6 +56,12 @@ namespace SalesManager.Infrastructure.Data.PostgreSql.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_sales", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_sales_clients_client_id",
+                        column: x => x.client_id,
+                        principalTable: "clients",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -66,7 +73,6 @@ namespace SalesManager.Infrastructure.Data.PostgreSql.Migrations
                     unit_price = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
                     quantity = table.Column<int>(type: "integer", nullable: false),
                     sale_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    SaleId1 = table.Column<Guid>(type: "uuid", nullable: true),
                     created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     updated_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -79,11 +85,6 @@ namespace SalesManager.Infrastructure.Data.PostgreSql.Migrations
                         principalTable: "products",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_sale_items_sales_SaleId1",
-                        column: x => x.SaleId1,
-                        principalTable: "sales",
-                        principalColumn: "id");
                     table.ForeignKey(
                         name: "FK_sale_items_sales_sale_id",
                         column: x => x.sale_id,
@@ -103,17 +104,14 @@ namespace SalesManager.Infrastructure.Data.PostgreSql.Migrations
                 column: "sale_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_sale_items_SaleId1",
-                table: "sale_items",
-                column: "SaleId1");
+                name: "IX_sales_client_id",
+                table: "sales",
+                column: "client_id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "clients");
-
             migrationBuilder.DropTable(
                 name: "sale_items");
 
@@ -122,6 +120,9 @@ namespace SalesManager.Infrastructure.Data.PostgreSql.Migrations
 
             migrationBuilder.DropTable(
                 name: "sales");
+
+            migrationBuilder.DropTable(
+                name: "clients");
         }
     }
 }

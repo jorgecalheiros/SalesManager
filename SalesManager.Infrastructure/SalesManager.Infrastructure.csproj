@@ -24,4 +24,8 @@
     <ProjectReference Include="..\SalesManager.Domain\SalesManager.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\PostgreSql\Migrations\" />
+  </ItemGroup>
+
 </Project>
